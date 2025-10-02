@@ -33,7 +33,7 @@ app.post("/energy-drinks", async (req, res) => {
 
   try {
     const [result] = await connection.query(
-      `INSERT INTO energy_drinks (name, brand, caffein, sugar_free, created_at, updated_at)
+      `INSERT INTO energy_drinks (name, brand, caffeine, sugar_free, created_at, updated_at)
         VALUES (?, ?, ?, ?, NOW(), NOW())`,
       [name, brand, caffeine, sugar_free ?? false]
     );
@@ -76,20 +76,22 @@ app.delete("/energy-drinks/:id", async (req, res) => {
 
 app.put("/energy-drinks/:id", async (req, res) => {
   const energyDrinkId = req.params.id;
-  const { name, brand, caffein, sugar_free } = req.body;
+  const { name, brand, caffeine, sugar_free } = req.body;
 
-  if (!name || !brand || !caffein) {
+  if (!name || !brand || !caffeine) {
     return res.status(400).json({ error: "Hiányzó vagy hibás mezők" });
   }
 
   try {
     const [result] = await connection.query(
       `UPDATE energy_drinks
-        SET name = ?
-        brand = ?
-        caffein = ?
-        sugar_free = ?
-        updated_at = ?`
+        SET name = ?,
+        brand = ?,
+        caffeine = ?,
+        sugar_free = ?,
+        updated_at = NOW()
+        WHERE id = ?`,
+      [name, brand, caffeine, sugar_free, energyDrinkId]
     );
     if (result.affectedRows === 0) {
       res.status(404).json({ error: "Energiaital nem található" });
@@ -102,4 +104,8 @@ app.put("/energy-drinks/:id", async (req, res) => {
       .status(500)
       .json({ error: "Szerverhiba történt az energiaital módosítás közben" });
   }
+});
+
+app.listen(port, () => {
+  console.log(`A szerver elindult a ${port} porton`);
 });

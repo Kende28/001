@@ -1,173 +1,180 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Dokumentáció - Energiaitalok</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-            padding-top: 40px;
-        }
-        h1 {
-            color: #007bff;
-            margin-bottom: 30px;
-        }
-        h2 {
-            color: #28a745;
-            margin-top: 30px;
-        }
-        h3 {
-            color: #6c757d;
-            margin-top: 20px;
-        }
-        .code-block {
-            background-color: #f0f0f0;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: "Courier New", Courier, monospace;
-        }
-        .error {
-            color: red;
-            font-weight: bold;
-        }
-        .endpoint {
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            padding: 20px;
-        }
-        .code-header {
-            font-weight: bold;
-            color: #007bff;
-        }
-        .parameters {
-            font-weight: bold;
-            color: #6c757d;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Dokumentáció - Energiaitalok</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    .endpoint {
+      background-color: #f4f4f4;
+      padding: 10px;
+      margin: 20px 0;
+      border-radius: 5px;
+    }
+    code {
+      background-color: #e4e4e4;
+      padding: 5px;
+      border-radius: 5px;
+    }
+    .error {
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+    .response {
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1 class="text-center">API Dokumentáció - Energiaitalok</h1>
-        <p class="lead text-center">Ez a dokumentáció a <strong>energiaitalok API</strong> használatát ismerteti. Az API lehetővé teszi energiaitalok hozzáadását, lekérdezését, frissítését és törlését.</p>
+  <h1>API Dokumentáció - Energiaitalok</h1>
 
-        <!-- POST /energy-drinks -->
-        <div class="endpoint">
-            <h2>POST /energy-drinks</h2>
-            <p><strong>Leírás:</strong> Új energiaital hozzáadása az adatbázishoz.</p>
-            <h3 class="code-header">Kérés:</h3>
-            <pre class="code-block">POST /energy-drinks</pre>
-            <h3 class="code-header">Példa:</h3>
-            <pre class="code-block">
-{
-    "name": "Red Bull",
-    "brand": "Red Bull GmbH",
-    "caffeine": 80,
-    "sugar_free": true
-}
-            </pre>
-            <h3 class="code-header">Válasz:</h3>
-            <pre class="code-block">
-{
-    "message": "Energiaital sikeresen hozzáadva"
-}
-            </pre>
-            <h3 class="code-header">Hibák:</h3>
-            <p class="error">400 - Hiányzó mezők: 'name', 'brand', 'caffeine', 'sugar_free'</p>
-            <p class="error">500 - Szerverhiba az energiaital mentése közben</p>
-        </div>
+  <p>Ez az API dokumentáció az energiaitalok kezeléséhez szükséges végpontokat tartalmazza.</p>
 
-        <!-- GET /energy-drinks -->
-        <div class="endpoint">
-            <h2>GET /energy-drinks</h2>
-            <p><strong>Leírás:</strong> Minden energiaital lekérdezése.</p>
-            <h3 class="code-header">Kérés:</h3>
-            <pre class="code-block">GET /energy-drinks</pre>
-            <h3 class="code-header">Példa válasz:</h3>
-            <pre class="code-block">
-[
-    {
-        "id": 1,
-        "name": "Red Bull",
-        "brand": "Red Bull GmbH",
-        "caffeine": 80,
-        "sugar_free": true,
-        "created_at": "2023-10-02T12:00:00",
-        "updated_at": "2023-10-02T12:00:00"
-    },
-    {
-        "id": 2,
-        "name": "Monster",
-        "brand": "Monster Energy",
-        "caffeine": 160,
-        "sugar_free": false,
-        "created_at": "2023-10-02T12:30:00",
-        "updated_at": "2023-10-02T12:30:00"
-    }
-]
-            </pre>
-            <h3 class="code-header">Hibák:</h3>
-            <p class="error">500 - Szerverhiba az energiaitalok lekérdezése közben</p>
-        </div>
-
-        <!-- DELETE /energy-drinks/:id -->
-        <div class="endpoint">
-            <h2>DELETE /energy-drinks/:id</h2>
-            <p><strong>Leírás:</strong> Energiaital törlése az adatbázisból az azonosító alapján.</p>
-            <h3 class="code-header">Kérés:</h3>
-            <pre class="code-block">DELETE /energy-drinks/:id</pre>
-            <h3 class="code-header">Példa:</h3>
-            <pre class="code-block">
-DELETE /energy-drinks/1
-            </pre>
-            <h3 class="code-header">Válasz:</h3>
-            <pre class="code-block">
-{
-    "message": "Energiaital sikeresen törölve"
-}
-            </pre>
-            <h3 class="code-header">Hibák:</h3>
-            <p class="error">404 - Energiaital nem található</p>
-            <p class="error">500 - Törlési hiba</p>
-        </div>
-
-        <!-- PUT /energy-drinks/:id -->
-        <div class="endpoint">
-            <h2>PUT /energy-drinks/:id</h2>
-            <p><strong>Leírás:</strong> Energiaital frissítése az azonosító alapján.</p>
-            <h3 class="code-header">Kérés:</h3>
-            <pre class="code-block">PUT /energy-drinks/:id</pre>
-            <h3 class="code-header">Példa:</h3>
-            <pre class="code-block">
-{
-    "name": "Red Bull Sugarfree",
-    "brand": "Red Bull GmbH",
-    "caffeine": 80,
-    "sugar_free": true
-}
-            </pre>
-            <h3 class="code-header">Válasz:</h3>
-            <pre class="code-block">
-{
-    "message": "Energiaital sikeresen frissítve"
-}
-            </pre>
-            <h3 class="code-header">Hibák:</h3>
-            <p class="error">400 - Hiányzó mezők: 'name', 'brand', 'caffeine'</p>
-            <p class="error">500 - Szerverhiba az energiaital módosítása közben</p>
-        </div>
+  <!-- Create energy drink -->
+  <h2>1. POST /energy-drinks</h2>
+  <div class="endpoint">
+    <p><strong>Leírás:</strong> Új energiaital hozzáadása az adatbázishoz.</p>
+    <p><strong>Request Body:</strong></p>
+    <pre><code>{
+  "name": "Red Bull",
+  "brand": "Red Bull",
+  "caffeine": 80,
+  "sugar_free": false
+}</code></pre>
+    <p><strong>Válasz:</strong></p>
+    <pre class="response">{
+  "message": "Energiaital sikeresen hozzáadva"
+}</pre>
+    <p><strong>Hibák:</strong></p>
+    <div class="error">
+      <p><strong>Státuszkód: 400</strong> - Ha bármelyik kötelező mező hiányzik:</p>
+      <pre class="error">{
+  "arrayError": [
+    { "error": "A 'name' mező megadása kötelező." },
+    { "error": "A 'brand' mező megadás kötelező." },
+    { "error": "A 'caffeine' mező megadás kötelező." },
+    { "error": "A 'sugar_free' mező megadás kötelező." }
+  ]
+}</pre>
     </div>
+    <div class="error">
+      <p><strong>Státuszkód: 500</strong> - Ha szerverhiba történik a mentés során:</p>
+      <pre class="error">{
+  "error": "Szerverhiba történt az energiaital mentés közben"
+}</pre>
+    </div>
+  </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <!-- Get all energy drinks -->
+  <h2>2. GET /energy-drinks</h2>
+  <div class="endpoint">
+    <p><strong>Leírás:</strong> Az összes energiaital lekérése.</p>
+    <p><strong>Válasz:</strong></p>
+    <pre class="response">[
+  {
+    "id": 1,
+    "name": "Red Bull",
+    "brand": "Red Bull",
+    "caffeine": 80,
+    "sugar_free": false,
+    "created_at": "2023-10-01T10:00:00",
+    "updated_at": "2023-10-01T10:00:00"
+  },
+  {
+    "id": 2,
+    "name": "Monster",
+    "brand": "Monster",
+    "caffeine": 90,
+    "sugar_free": true,
+    "created_at": "2023-10-02T10:00:00",
+    "updated_at": "2023-10-02T10:00:00"
+  }
+]</pre>
+    <p><strong>Hibák:</strong></p>
+    <div class="error">
+      <p><strong>Státuszkód: 500</strong> - Ha szerverhiba történik a lekérés során:</p>
+      <pre class="error">{
+  "error": "Szerverhiba történt az energiaitalok lekérdetése közben"
+}</pre>
+    </div>
+  </div>
+
+  <!-- Delete energy drink -->
+  <h2>3. DELETE /energy-drinks/:id</h2>
+  <div class="endpoint">
+    <p><strong>Leírás:</strong> Energiaital törlése az adatbázisból.</p>
+    <p><strong>URL paraméter:</strong> <code>:id</code> - A törlendő energiaital azonosítója</p>
+    <p><strong>Válasz:</strong></p>
+    <pre class="response">{
+  "message": "Energiaital sikeresen törölve"
+}</pre>
+    <p><strong>Hibák:</strong></p>
+    <div class="error">
+      <p><strong>Státuszkód: 404</strong> - Ha az energiaital nem található:</p>
+      <pre class="error">{
+  "error": "Energiaital nem található"
+}</pre>
+    </div>
+    <div class="error">
+      <p><strong>Státuszkód: 500</strong> - Ha szerverhiba történik a törlés során:</p>
+      <pre class="error">{
+  "error": "Törlési hiba"
+}</pre>
+    </div>
+  </div>
+
+  <!-- Update energy drink -->
+  <h2>4. PUT /energy-drinks/:id</h2>
+  <div class="endpoint">
+    <p><strong>Leírás:</strong> Energiaital frissítése.</p>
+    <p><strong>Request Body:</strong></p>
+    <pre><code>{
+  "name": "Monster Energy",
+  "brand": "Monster",
+  "caffeine": 90,
+  "sugar_free": true
+}</code></pre>
+    <p><strong>Válasz:</strong></p>
+    <pre class="response">{
+  "message": "Energiaital sikeresen frissítve"
+}</pre>
+    <p><strong>Hibák:</strong></p>
+    <div class="error">
+      <p><strong>Státuszkód: 400</strong> - Ha a kötelező mezők hiányoznak:</p>
+      <pre class="error">{
+  "error": "Hiányzó vagy hibás mezők"
+}</pre>
+    </div>
+    <div class="error">
+      <p><strong>Státuszkód: 404</strong> - Ha az energiaital nem található:</p>
+      <pre class="error">{
+  "error": "Energiaital nem található"
+}</pre>
+    </div>
+    <div class="error">
+      <p><strong>Státuszkód: 500</strong> - Ha szerverhiba történik a frissítés során:</p>
+      <pre class="error">{
+  "error": "Szerverhiba történt az energiaital módosítás közben"
+}</pre>
+    </div>
+  </div>
+
 </body>
 </html>
